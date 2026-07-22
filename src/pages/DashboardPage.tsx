@@ -1,5 +1,5 @@
 /**
- * Dashboard Page
+ * Updated Dashboard Page with Recent Activity
  */
 
 import { useState } from 'react';
@@ -11,6 +11,7 @@ import LevelCard from '@/components/home/LevelCard';
 import StatsGrid from '@/components/home/StatsGrid';
 import CategoryGrid from '@/components/home/CategoryGrid';
 import AchievementsPreview from '@/components/home/AchievementsPreview';
+import RecentActivity from '@/components/home/RecentActivity';
 import { categories, achievements } from '@/data/categories';
 import { QuizCategory } from '@/types';
 
@@ -28,7 +29,7 @@ export default function DashboardPage() {
 
   const handleStartQuiz = (category: QuizCategory) => {
     setSelectedCategory(category);
-    // TODO: Navigate to quiz page
+    // TODO: Navigate to quiz page with TanStack Router
     console.log(`Starting quiz in ${category.name}`);
   };
 
@@ -111,6 +112,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
+          className="mb-8"
         >
           <Card>
             <h2 className="text-2xl font-bold text-white mb-6">Choose a Category</h2>
@@ -118,15 +120,26 @@ export default function DashboardPage() {
           </Card>
         </motion.div>
 
-        {/* Achievements */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mt-8"
-        >
-          <AchievementsPreview achievements={achievements} />
-        </motion.div>
+        {/* Two Column Layout */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Achievements */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <AchievementsPreview achievements={achievements} />
+          </motion.div>
+
+          {/* Recent Activity */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <RecentActivity />
+          </motion.div>
+        </div>
       </div>
     </div>
   );
